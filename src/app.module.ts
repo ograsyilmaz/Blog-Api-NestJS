@@ -2,11 +2,27 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
-import { DbModule } from './db/db.module';
+import { ConfigModule } from '@nestjs/config';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { BlogModule } from './blog/blog.module';
+import { UserEntity } from './user/entity/user.entity';
 
 @Module({
-  imports: [UserModule, DbModule, BlogModule],
+  imports: [
+    ConfigModule.forRoot(),
+    TypeOrmModule.forRoot({
+      type: 'mongodb',
+      url: process.env.MONGODB_CONNECTION_STRING,
+
+      entities: [__dirname + '/**/*.entity{.ts,.js}'],
+      ssl: true,
+      useUnifiedTopology: true,
+      useNewUrlParser: true,
+    }),
+    TypeOrmModule.forFeature([UserEntity]),
+    UserModule,
+    BlogModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
