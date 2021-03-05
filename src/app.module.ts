@@ -5,11 +5,12 @@ import { UserModule } from './user/user.module';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { BlogModule } from './blog/blog.module';
-import { UserEntity } from './user/entity/user.entity';
+// import { UserEntity } from './user/entity/user.entity';
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
+
     TypeOrmModule.forRoot({
       type: 'mongodb',
       url: process.env.MONGODB_CONNECTION_STRING,
@@ -19,7 +20,7 @@ import { UserEntity } from './user/entity/user.entity';
       useUnifiedTopology: true,
       useNewUrlParser: true,
     }),
-    TypeOrmModule.forFeature([UserEntity]),
+
     UserModule,
     BlogModule,
   ],
