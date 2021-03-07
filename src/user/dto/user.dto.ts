@@ -1,9 +1,9 @@
-import { IsString } from 'class-validator';
+import { IsString, IsNotEmpty } from 'class-validator';
+import { ObjectID } from 'typeorm';
 
 export class UserDto {
   @IsString()
   name: string;
-
-  @IsString()
-  password: string;
+  @IsNotEmpty()
+  id: ObjectID;
 }
