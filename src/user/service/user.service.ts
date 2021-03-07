@@ -23,7 +23,7 @@ export class UserService {
     if (!user) {
       throw new HttpException('Kullanıcı Bulunamadı.', HttpStatus.UNAUTHORIZED);
     }
-    const pswdEqual = password && user.password;
+    const pswdEqual = password === user.password;
 
     if (!pswdEqual) {
       throw new HttpException('Giriş Yapılamadı', HttpStatus.UNAUTHORIZED);
