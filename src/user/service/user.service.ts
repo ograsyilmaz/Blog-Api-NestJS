@@ -34,6 +34,7 @@ export class UserService {
   // eslint-disable-next-line @typescript-eslint/ban-types
   async findOne(options?: object): Promise<UserDto> {
     const user = await this.userRepository.findOne(options);
+    delete user.password;
     return user;
   }
   async findByPayload({ name }: any): Promise<UserDto> {
